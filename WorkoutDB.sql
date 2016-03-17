@@ -24,7 +24,7 @@ CREATE TABLE WORKOUT(ID INT NOT NULL AUTO_INCREMENT,
 						PERFORMANCE SMALLINT(2),
 						WORKOUTNOTE VARCHAR(255),
 						WEATHERCONDITIONS VARCHAR(255), #For outdoor activities
-						AIRCONTITIONS VARCHAR(255), #For indoor activities
+						AIRCONDITIONS VARCHAR(255), #For indoor activities
 						NUMBEROFSPECTATORS SMALLINT, #For indoor activities
 						PRIMARY KEY (ID),
 						CHECK (DURATION > 0), #Has to be a positive integer

@@ -43,7 +43,6 @@ public class Main {
 				System.out.print("ID: " + id);
 				System.out.print(", Age: " + age);
 				System.out.print(", First: " + first);
-				System.out.println(", Last: " + last);
 		 }
 		 //STEP 6: Clean-up environment
 		 rs.close();

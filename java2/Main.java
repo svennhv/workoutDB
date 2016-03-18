@@ -62,15 +62,15 @@ public class Main {
 		   String strDate = date.toString();
 		   
 	       wm.put("name", "");
-	       wm.put("isTemplate", "");
-	       wm.put("workoutTime", "");
+	       wm.put("istemplate", "");
+	       //wm.put("workouttime", "");
 	       wm.put("duration",  "");
-	       //hm.put("shape",  "shape");
-	       //hm.put("performance", rs.getString("performance"));
-	       //hm.put("workoutNote",  rs.getString("workoutNote"));
-	       //hm.put("weatherConditions", rs.getString("weatherConditions"));
-	       //hm.put("airconditions", "null");
-	       //hm.put("numberOfSpectators", rs.getString("numberofspectators"));
+	       wm.put("shape",  "");
+	       wm.put("performance", "");
+	       wm.put("workoutnote",  "");
+	       wm.put("weatherconditions", "");
+	       wm.put("airconditions", "");
+	       wm.put("numberofspectators", "");
 		
 		
 		
@@ -144,7 +144,6 @@ public class Main {
 			else{
 				System.out.println("Invalid command");
 			}
-			
 			// for testing:
 			//exit = true;
 			

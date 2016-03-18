@@ -47,7 +47,7 @@ public class WorkoutCtrl{
 		 Iterator it = hm.entrySet().iterator();
 		 while(it.hasNext()){
 			 List<String> list = Arrays.asList(it.next().toString().split("="));
-			 columns += list.get(0) + "," ;
+			 columns += list.get(0).toLowerCase() + "," ;
 			 String val = "";
 			 if (list.get(1) == null){
 				 val = "NULL";
@@ -85,11 +85,13 @@ public class WorkoutCtrl{
 	 
 	 public String getWorkouts(){
 		 String sql = "SELECT name FROM workout";
-		 return sql;
+		 String output = query(sql).toString();
+		 output.replace("name","");
+		 return output;
 	 }
 	 public String getExercises(String workout){
 		 String sql = "SELECT name FROM exerciseinworkout WHERE workoutid = \"" + workout + "\"";
-		 return sql;
+		 return query(sql).toString();
 	 }
 	 
 	 public String getExcersises(String workout){
@@ -126,6 +128,21 @@ public class WorkoutCtrl{
 		    if (query.contains("INSERT") || query.contains("DELETE")){
 		    	System.out.println("updating database... statement: " + query);
 		    	stmt.executeUpdate(sql);
+		    }
+		    else if (query.contains("SELECT name FROM workout")){ // easy fix - because extract() requres all fields
+		    	ResultSet rs = stmt.executeQuery(sql);
+		    	// create list for hashmaps
+			    ArrayList<Map<String, String>> nameList = new ArrayList();
+			    //STEP 5: Extract data from result set
+			    while(rs.next()){
+				   // save to hashmap:
+				   Map<String, String> hm = new HashMap<String, String>();
+				   hm.put("name", rs.getString("name"));
+				   nameList.add(hm);
+			    }
+			    System.out.println("returning nameList");
+		    	return nameList;
+			    
 		    }
 		    else{
 			    ResultSet rs = stmt.executeQuery(sql);
@@ -173,17 +190,27 @@ public class WorkoutCtrl{
 			   Map<String, String> hm = new HashMap<String, String>();
 		    
 			   // adds all fields to hashmap
-			   // NB: all are strings, need to be converted.. 
-		       hm.put("name", rs.getString("name"));
-		       hm.put("isTemplate", rs.getString("istemplate"));
-		       hm.put("workoutTime", rs.getString("workouttime"));
-		       hm.put("duration",  rs.getString("duration"));
-		       hm.put("shape",  rs.getString("shape"));
-		       hm.put("performance", rs.getString("performance"));
-		       hm.put("workoutNote",  rs.getString("workoutnote"));
-		       hm.put("weatherConditions", rs.getString("weatherconditions"));
-		       hm.put("airConditions", rs.getString("airconditions"));
-		       hm.put("numberOfSpectators", rs.getString("numberofspectators"));
+			   // NB: all are strings, need to be converted..
+			   try{ hm.put("name", rs.getString("name"));}
+			   finally{}
+			   try{	hm.put("istemplate", rs.getString("istemplate"));}
+			   finally{}
+		       try{ hm.put("workouttime", rs.getString("workouttime"));}
+			   finally{}
+		       try{ hm.put("duration",  rs.getString("duration"));}
+			   finally{}
+		       try{ hm.put("shape",  rs.getString("shape"));}
+			   finally{}
+		       try{ hm.put("performance", rs.getString("performance"));}
+			   finally{}
+		       try{ hm.put("workoutnote",  rs.getString("workoutnote"));}
+			   finally{}
+		       try{ hm.put("weatherconditions", rs.getString("weatherconditions"));}
+			   finally{}
+		       try{ hm.put("airconditions", rs.getString("airconditions"));}
+			   finally{}
+		       try{ hm.put("numberofspectators", rs.getString("numberofspectators"));}
+			   finally{}
 		       
 		       list.add(hm);
 		    }

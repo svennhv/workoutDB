@@ -76,7 +76,8 @@ public class ExerciseCtrl{
 	 
 	 public String getExercises(){
 		 String sql = "SELECT name FROM exercise";
-		 return sql;
+		 String output = query(sql).toString();
+		 return output;
 	 }
 	 
 	 public void show(){
@@ -102,39 +103,45 @@ public class ExerciseCtrl{
 	 
 	 public ArrayList<Map<String, String>> query(String query){
 		 try{
-		    //STEP 2: Register JDBC driver
-		    Class.forName("com.mysql.jdbc.Driver");
-	
-		    //STEP 3: Open a connection
-		    System.out.println("Connecting to database...");
-		    conn = DriverManager.getConnection(DB_URL,USER,PASS);
-	
-		    //STEP 4: Execute a query
-		    System.out.println("Creating statement...");
-		    stmt = conn.createStatement();
-		    String sql;
-		    
-		    // is it an insert?
-		    ArrayList<Map<String, String>> list = new ArrayList();
-		    
-		    sql = query.toUpperCase();
-		    if (query.contains("INSERT") || query.contains("DELETE")){
-		    	System.out.println("updating database... statement: " + query);
-		    	stmt.executeUpdate(sql);
-		    }
-		    else{
-			    ResultSet rs = stmt.executeQuery(sql);
+			    //STEP 2: Register JDBC driver
+			    Class.forName("com.mysql.jdbc.Driver");
+		
+			    //STEP 3: Open a connection
+			    System.out.println("Connecting to database...");
+			    conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		
+			    //STEP 4: Execute a query
+			    System.out.println("Creating statement...");
+			    stmt = conn.createStatement();
+			    String sql;
 			    
-			    // STEP 5: Extract and save to list
-			    list = extract(rs);
+			    ArrayList<Map<String, String>> list = new ArrayList();
 			    
-			    rs.close();
-		    }
-		    stmt.close();
-		    conn.close();
-		    return (list); // return resultSet
-		    
-		 }catch(SQLException se){
+			    sql = query.toUpperCase();
+			    if (query.contains("INSERT") || query.contains("DELETE")){
+			    	System.out.println("updating database... statement: " + query);
+			    	stmt.executeUpdate(sql);
+			    }
+			    else if (query.contains("SELECT name FROM exercise")){ 
+					ResultSet rs = stmt.executeQuery(sql);
+					list = extractName(rs); // needs separate function if you only need one column!
+				    System.out.println("returning nameList");
+			    	return list;
+				    
+			    }
+			    else{
+				    ResultSet rs = stmt.executeQuery(sql);
+				    
+				    // STEP 5: Extract and save to list
+				    list = extract(rs);
+				    
+				    rs.close();
+			    }
+			    stmt.close();
+			    conn.close();
+			    return (list); // return resultSet
+			    
+			 }catch(SQLException se){
 		    //Handle errors for JDBC
 		    se.printStackTrace();
 		 }catch(Exception e){
@@ -181,6 +188,21 @@ public class ExerciseCtrl{
 		    }
 		    
 		    return list;
+	 }
+	 private ArrayList<Map<String,String>> extractName(ResultSet rs) throws SQLException{
+		 
+
+	    	// create list for hashmaps
+		    ArrayList<Map<String, String>> nameList = new ArrayList();
+		    //STEP 5: Extract data from result set
+		    while(rs.next()){
+			   // save to hashmap:
+			   Map<String, String> hm = new HashMap<String, String>();
+			   hm.put("name", rs.getString("name"));
+			   nameList.add(hm);
+		    }
+		    
+		    return nameList;
 	 }
 	 
 	 

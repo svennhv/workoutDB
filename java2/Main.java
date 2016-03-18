@@ -96,7 +96,7 @@ public class Main {
 					System.out.println(work.getWorkouts());
 				}
 				else{
-					System.out.println("You can show: exercise, workout. Eg. type: > show exercise");
+					System.out.println("# You can show: exercise, workout. Eg. type: > show exercise");
 				}
 			}
 			else if (command.equals(newCommand)){
@@ -119,7 +119,7 @@ public class Main {
 			}
 			else if (command.contains(add)){
 				if (request.contains("exercise")){
-					System.out.println("Choose workout:");
+					System.out.println("# Choose workout:");
 					System.out.println(work.getWorkouts());
 					System.out.print(">");
 					String workout = in.nextLine();

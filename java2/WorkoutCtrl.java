@@ -78,8 +78,14 @@ public class WorkoutCtrl{
 	 }
 	 
 	 public void addExercise(String exercise, String workout){
+		 ArrayList id = query("SELECT id FROM workout WHERE name= \"" + workout +"\"");
+		 Map<String,String> map = new HashMap<String,String>();
+		 map =  (Map) id.get(0); // .get("id")
+		 String val = map.get("id");
+		 val.replaceAll(".*?(\\d+).*", "");
+		 System.out.println(val);
 		 String sql = "INSERT INTO exerciseinworkout (exercisename, workoutid)"
-		 		+ " VALUES (\"" + exercise + "\" , \""+ workout + "\")";
+		 		+ " VALUES (\"" + exercise + "\" , \""+ val + "\")";
 		 query(sql);
 	 }
 	 
@@ -121,7 +127,6 @@ public class WorkoutCtrl{
 		    stmt = conn.createStatement();
 		    String sql;
 		    
-		    // is it an insert?
 		    ArrayList<Map<String, String>> list = new ArrayList();
 		    
 		    sql = query.toUpperCase();
@@ -135,6 +140,12 @@ public class WorkoutCtrl{
 			    System.out.println("returning nameList");
 		    	return list;
 			    
+		    }
+		    else if(query.contains("SELECT id FROM workout WHERE name")){
+				ResultSet rs = stmt.executeQuery(sql);
+				list = extractId(rs); // needs separate function if you only need one column!
+			    System.out.println("returning nameList");
+		    	return list;
 		    }
 		    else{
 			    ResultSet rs = stmt.executeQuery(sql);
@@ -220,8 +231,16 @@ public class WorkoutCtrl{
 			   Map<String, String> hm = new HashMap<String, String>();
 			   hm.put("name", rs.getString("name"));
 			   nameList.add(hm);
-		    }
-		    
+		    } 
+		    return nameList;
+	 }
+	 private ArrayList<Map<String,String>> extractId(ResultSet rs) throws SQLException{
+		    ArrayList<Map<String, String>> nameList = new ArrayList();
+		    while(rs.next()){
+			   Map<String, String> hm = new HashMap<String, String>();
+			   hm.put("id", rs.getString("id"));
+			   nameList.add(hm);
+		    } 
 		    return nameList;
 	 }
 	 

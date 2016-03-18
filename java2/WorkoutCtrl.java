@@ -129,19 +129,11 @@ public class WorkoutCtrl{
 		    	System.out.println("updating database... statement: " + query);
 		    	stmt.executeUpdate(sql);
 		    }
-		    else if (query.contains("SELECT name FROM workout")){ // easy fix - because extract() requres all fields
-		    	ResultSet rs = stmt.executeQuery(sql);
-		    	// create list for hashmaps
-			    ArrayList<Map<String, String>> nameList = new ArrayList();
-			    //STEP 5: Extract data from result set
-			    while(rs.next()){
-				   // save to hashmap:
-				   Map<String, String> hm = new HashMap<String, String>();
-				   hm.put("name", rs.getString("name"));
-				   nameList.add(hm);
-			    }
+		    else if (query.contains("SELECT name FROM workout")){ 
+				ResultSet rs = stmt.executeQuery(sql);
+				list = extractName(rs); // needs separate function if you only need one column!
 			    System.out.println("returning nameList");
-		    	return nameList;
+		    	return list;
 			    
 		    }
 		    else{
@@ -216,6 +208,21 @@ public class WorkoutCtrl{
 		    }
 		    
 		    return list;
+	 }
+	 private ArrayList<Map<String,String>> extractName(ResultSet rs) throws SQLException{
+		 
+
+	    	// create list for hashmaps
+		    ArrayList<Map<String, String>> nameList = new ArrayList();
+		    //STEP 5: Extract data from result set
+		    while(rs.next()){
+			   // save to hashmap:
+			   Map<String, String> hm = new HashMap<String, String>();
+			   hm.put("name", rs.getString("name"));
+			   nameList.add(hm);
+		    }
+		    
+		    return nameList;
 	 }
 	 
 	 

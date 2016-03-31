@@ -21,7 +21,7 @@ INSERT INTO EXERCISECATEGORY
 VALUES("Endurance training");
 
 INSERT INTO LOGENTRY
-VALUES(NULL,"jogging");
+VALUES(1,"jogging");
 
 INSERT INTO CANREPLACE
 VALUES("jogging","intervall training");

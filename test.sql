@@ -31,5 +31,3 @@ VALUES("jogging",1);
 INSERT INTO EXERCISEINCATEGORY
 VALUES("jogging","endurance training");
 
-INSERT INTO CATEGORYINCATEGORY
-VALUES("training","endurance training");

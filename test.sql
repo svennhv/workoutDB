@@ -23,8 +23,6 @@ VALUES("Endurance training");
 INSERT INTO LOGENTRY
 VALUES(1,"jogging");
 
-INSERT INTO CANREPLACE
-VALUES("jogging","intervall training");
 
 
 INSERT INTO EXERCISEINWORKOUT

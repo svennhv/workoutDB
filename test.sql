@@ -6,7 +6,7 @@ INSERT INTO EXERCISE
 VALUES(TRUE, "squats", "leg exercise", "160kg x 3", "120kg x3", 90, 5, 3, NULL, NULL);
 
 INSERT INTO EXERCISE
-VALUES(TRUE, "jogging", "endurence training", "10km", "12 km", NULL,  NULL, NULL, 10, 65);
+VALUES(TRUE, "jogging", "endurance training", "10km", "12 km", NULL,  NULL, NULL, 10, 65);
 
 INSERT INTO WORKOUT
 VALUES(NULL, "Strength exercise", TRUE, "16.03.2017", 60, 6, 8, "upper body strength exercises", NULL, "good", 0);

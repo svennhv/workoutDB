@@ -9,10 +9,10 @@ INSERT INTO EXERCISE
 VALUES("jogging", "endurence training", "10km", "12 km", NULL,  NULL, NULL, 10, 65);
 
 INSERT INTO WORKOUT
-VALUES(NULL, "Strength exercise", TRUE, "16.03.2017", 60, 6, 8, "upper body strength exercises", NULL, "good", 0);
+VALUES(NULL, "Strength exercise", TRUE,'2016-03-16 11:10:40', 60, 6, 8, "upper body strength exercises", NULL, "good", 0);
 
 INSERT INTO WORKOUT
-VALUES(NULL, "Endurance ecercise", TRUE, "17.03.2017", 70, 6, 6, "endurance exercise", "sunny, warm temperature", NULL,NULL);
+VALUES(NULL, "Endurance ecercise", TRUE, '2016-03-21 10:11:32', 70, 6, 6, "endurance exercise", "sunny, warm temperature", NULL,NULL);
 
 INSERT INTO WORKOUTTEMPLATE
 VALUES(1,1);
